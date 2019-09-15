@@ -11,9 +11,12 @@ let initialState = {
 function rootReducer(state = initialState, action) {
   switch(action.type) {
     case 'ADD_TODO':
-      // add a todo
-      debugger;
-      return state;
+      var newState = { ...state }; // make a copy of state to keep pure function, not overwriting state
+      newState.id++; // increment id of newState
+      return {
+        ...newState, // 
+        todos: [...newState.todos,  {task: action.task, id: newState.id }] // includes whatever todos plus new todo and id
+      };
     case 'REMOVE_TODO':
       // remove a today
     default:
@@ -35,6 +38,13 @@ $(document).ready(function() {
       type: 'ADD_TODO',
       task: newTask,
     });
+
+    // get current state at that time
+    let currentState = store.getState();
+    let $newLi = $('<li>', {
+      text: newTask
+    });
+    $('#todos').append($newLi);
     $('form').trigger('reset');
   })
 })
