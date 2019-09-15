@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
-const Todo = ({task}) => {
+const Todo = ({ task, removeTodo }) => {
   return (
-    <li>{task}</li>
+    <li>
+      {task}
+      <button onClick={removeTodo}>X</button>
+    </li>
   )
 };
 
