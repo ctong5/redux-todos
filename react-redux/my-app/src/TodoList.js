@@ -7,6 +7,7 @@ class TodoList extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
     this.state = {
       task: '',
     }
@@ -27,10 +28,22 @@ class TodoList extends Component {
     });
   }
 
+  removeTodo(id){
+    this.props.dispatch({
+      type: 'REMOVE_TODO',
+      id,
+    })
+  }
+
   render() {
     let todos = this.props.todos.map((task, index) => {
       return (
-        <Todo task={task.task} key={index} />
+        <Todo 
+          // note: bug here if do not bind removeTodo to specific task id
+          removeTodo={this.removeTodo.bind(task.id)} 
+          task={task.task} 
+          key={index} 
+        />
       )
     });
 
