@@ -6,12 +6,15 @@ import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux'; // the default export is redux. ...Redux.createStore
 import rootReducer from './rootReducer';
 import { Provider } from 'react-redux'; // connects react application with redux store
+import { BrowserRouter } from 'react-router-dom';
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>, 
   document.getElementById('root')
 );
