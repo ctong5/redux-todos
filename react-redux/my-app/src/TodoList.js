@@ -67,8 +67,8 @@ function mapStateToProps(reduxState) {
 }
 
 // function mapDispatchToProps(dispatch) {
-//   // addTodo
-//   // removeTodo
+//   // addTodo actionCreator
+//   // removeTodo actionCreator
 // }
 
 export default connect(mapStateToProps, { addTodo, removeTodo })(TodoList);
