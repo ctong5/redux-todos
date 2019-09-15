@@ -2,7 +2,7 @@ import { ADD_TODO, REMOVE_TODO } from './actionCreators';
 
 const initialState = {
   todos: [],
-  id,
+  id: 0,
 }
 
 export default function rootReducer(state = initialState, action) {
