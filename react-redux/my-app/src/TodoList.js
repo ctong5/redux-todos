@@ -14,7 +14,11 @@ class TodoList extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    debugger;
+    this.props.dispatch({
+      type: 'ADD_TODO',
+      task: this.state.task
+    });
+    e.target.reset();
   }
 
   handleChange(e) {
@@ -26,7 +30,7 @@ class TodoList extends Component {
   render() {
     let todos = this.props.todos.map((task, index) => {
       return (
-        <Todo task={task} key={index} />
+        <Todo task={task.task} key={index} />
       )
     });
 
