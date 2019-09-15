@@ -40,7 +40,7 @@ class TodoList extends Component {
       return (
         <Todo 
           // note: bug here if do not bind removeTodo to specific task id
-          removeTodo={this.removeTodo.bind(task.id)} 
+          removeTodo={this.removeTodo.bind(this, task.id)} 
           task={task.task} 
           key={index} 
         />
