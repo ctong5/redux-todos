@@ -15,20 +15,30 @@ function rootReducer(state = initialState, action) {
       newState.id++; // increment id of newState
       return {
         ...newState, // 
-        todos: [...newState.todos,  {task: action.task, id: newState.id }] // includes whatever todos plus new todo and id
+        todos: [...newState.todos,  {task: action.task, id: newState.id }], // includes whatever todos plus new todo and id
       };
     case 'REMOVE_TODO':
-      // remove a today
+      // again, make copy of todos to keep function pure
+      let todos = state.todos.filter(todo => todo.id !== +action.id);
+      return { ...state, todos };
     default:
       return state;
   }
 }
 
 // create store
-const store = Redux.createStore(rootReducer)
+const store = Redux.createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 // on DOM load
 $(document).ready(function() {
+  $('ul').on('click', 'button', function(event){
+    store.dispatch({
+      type: "REMOVE_TODO",
+      id: $(event.target).attr('id'),
+    });
+
+    $(event.target).parent().remove() // remove parent list item of x button
+  })
   // when form is submited, dispatch "ADD_TODO" (send action to reducer). Note you can see action, type in chrome debugger if add debugger in reducer
   // grab form and trigger reset event to clear form values
   $('form').on('submit', function(event){
@@ -39,8 +49,8 @@ $(document).ready(function() {
       task: newTask,
     });
 
-    // get current state at that time
     let currentState = store.getState();
+
     let $newLi = $('<li>', {
       text: newTask
     });
