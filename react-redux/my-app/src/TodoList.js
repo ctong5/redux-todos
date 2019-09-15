@@ -74,11 +74,12 @@ function mapStateToProps(reduxState) {
 export default connect(mapStateToProps)(TodoList);
 
 /* NOTE: flow of operations...
-* Wrap App in Provider
-* Connect Todolist to store
-* Run createStore function in rootreducer.
-* Retrieve initial state
-* Pass in mapstatetoprops to connect, which is passing in initialstate. Goes to reducer, gets that state, setting as component props
-* componenent renders
-* initially reduxState will be passed in as { todos: Array(0), id: 0 }, turn into props in react component
+* Run createStore index.js using rootreducer
+* Wrap React App in Provider, pass in store to App
+* Connect Todolist to redux state with connect function, taking in mapStateToProps. Retrieve initialState
+* Goes to reducer, gets that state, setting as component props
+* Componenent renders
+* Initially reduxState will be passed in as { todos: Array(0), id: 0 }, turn into props in react component
+* Add a todo: changes react state, dispatch an action, goes back to rootreducer, changes redux state, back to mapstatetoprops, new state, render component
+* Remove a todo: click button, dispatch an action, new redux state, mapstatetoprops, put new redux state on props, render component
 */
