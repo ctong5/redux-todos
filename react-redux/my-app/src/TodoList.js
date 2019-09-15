@@ -4,9 +4,6 @@ import Todo from './Todo';
 class TodoList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      todos: ['Eat', 'Sleep', 'Rave', 'Repeat'],
-    };
   }
 
   render() {
