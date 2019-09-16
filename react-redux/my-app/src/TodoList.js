@@ -58,7 +58,7 @@ function mapStateToProps(reduxState) {
 export default connect(mapStateToProps, { addTodo, removeTodo })(TodoList);
 
 /* 
-NOTE: flow of operations...
+NOTE: Flow of operations
 * Run createStore index.js using rootreducer
 * Wrap React App in Provider, pass in store to App
 * Connect Todolist to redux state with connect function, taking in mapStateToProps. Retrieve initialState
@@ -72,7 +72,10 @@ NOTE: flow of operations...
 /*
 NOTE: Refactor with React Router
 * Add react router, wrap browser router with provider
-* 
-* Remove new todo form from todolist
-* 
+* When you go to '/todos' go to TodoList component
+* When you go to exact '/' redirect to '/todos'
+* Inside todolist, remove new todo form from todolist (isolate)
+* TodoList is connected to redux. Grab redux state, render todos and routes
+* When you go to '/todos/new', render new todoform with new props (this.props.history.push comes from {...props}). 
+* Instead of also connecting NewTodoForm to redux (make it a container), passed props from inside TodoList.
 */
