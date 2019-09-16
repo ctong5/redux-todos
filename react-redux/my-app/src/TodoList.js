@@ -2,28 +2,18 @@ import React, { Component } from 'react';
 import Todo from './Todo';
 import { connect } from 'react-redux';
 import { addTodo, removeTodo } from './actionCreators';
+import {Route} from 'react-router-dom'
+import NewTodoForm from './NewTodoForm';
 
 class TodoList extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
-    this.state = {
-      task: '',
-    }
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.addTodo(this.state.task);
-    e.target.reset();
-  }
-
-  handleChange(e) {
-    this.setState ({
-      [e.target.name]: e.target.value
-    });
+  handleAdd(val) {
+    this.props.addTodo(val);
   }
 
   removeTodo(id){
@@ -44,17 +34,11 @@ class TodoList extends Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor='task'>Task</label>
-          <input 
-            type='text' 
-            name='task' 
-            id='task'
-            onChange={this.handleChange}
-          />
-          <button>Add a Todo!</button>
-        </form>
-        <ul>{todos}</ul>
+        <Route path='/todos/new' component={props => (
+          <NewTodoForm {...props} handleSubmit={this.handleAdd} />
+        )} />
+
+        <Route exact path='/todos' component= {() => <div>{todos}</div>} />
       </div>
     )
   }
@@ -73,7 +57,8 @@ function mapStateToProps(reduxState) {
 
 export default connect(mapStateToProps, { addTodo, removeTodo })(TodoList);
 
-/* NOTE: flow of operations...
+/* 
+NOTE: flow of operations...
 * Run createStore index.js using rootreducer
 * Wrap React App in Provider, pass in store to App
 * Connect Todolist to redux state with connect function, taking in mapStateToProps. Retrieve initialState
@@ -82,4 +67,12 @@ export default connect(mapStateToProps, { addTodo, removeTodo })(TodoList);
 * Initially reduxState will be passed in as { todos: Array(0), id: 0 }, turn into props in react component
 * Add a todo: changes react state, dispatch an action, goes back to rootreducer, changes redux state, back to mapstatetoprops, new state, render component
 * Remove a todo: click button, dispatch an action, new redux state, mapstatetoprops, put new redux state on props, render component
+*/
+
+/*
+NOTE: Refactor with React Router
+* Add react router, wrap browser router with provider
+* 
+* Remove new todo form from todolist
+* 
 */
